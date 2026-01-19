@@ -66,7 +66,7 @@ class Throbac2CTranslator(ThrobacListener):
     def exitCompare(self, ctx: ThrobacParser.CompareContext):
         left = self.c_translation[ctx.expr(0)]
         right = self.c_translation[ctx.expr(1)]
-        operator = OPERATIONS_MAP[ctx.op()]
+        operator = OPERATIONS_MAP[ctx.op.text]
         self.c_translation[ctx] = f'{left} {operator} {right}'
 
     def exitConcatenation(self, ctx: ThrobacParser.ConcatenationContext):
