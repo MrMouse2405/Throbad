@@ -14,7 +14,7 @@ from throbac.ThrobacParser import ThrobacParser
 
 DIGIT_MAP = {'NIL': '0', 'I': '1', 'II': '2', 'III': '3', 'IV': '4',
              'V': '5', 'VI': '6', 'VII': '7', 'VIII': '8', 'IX': '9'}
-
+OPERATIONS_MAP = {'IDEM' : '==', 'NI.IDEM': '!=', 'INFRA': '<', 'INFRA.IDEM' : '<=', 'SUPRA' : '>', 'SUPRA.IDEM' : '>='}
 
 def c_block(node):
     """
@@ -51,6 +51,29 @@ class Throbac2CTranslator(ThrobacListener):
         self.c_translation[ctx] = c_with_pluses.replace('+', r'\n')  # note the raw string
 
     # --- TODO: yours to provide (not in this order - see `testcases.py`)
+
+    def exitBool(self, ctx: ThrobacParser.BoolContext):
+        throbac_bool = ctx.getText()
+        c_nonlatin_bool = '1' if throbac_bool == 'VERUM' else '0'
+        self.c_translation[ctx] = c_nonlatin_bool
+
+    def exitVariable(self, ctx: ThrobacParser.VariableContext):
+        self.c_translation[ctx] = ctx.getText()
+
+    def exitParens(self, ctx: ThrobacParser.ParensContext):
+        self.c_translation[ctx] = self.c_translation[ctx.expr()]
+
+    def exitCompare(self, ctx: ThrobacParser.CompareContext):
+        left = self.c_translation[ctx.expr(0)]
+        right = self.c_translation[ctx.expr(1)]
+        operator = OPERATIONS_MAP[ctx.op()]
+        self.c_translation[ctx] = f'{left} {operator} {right}'
+
+    def exitConcatenation(self, ctx: ThrobacParser.ConcatenationContext):
+        left = self.c_translation[ctx.expr(0)]
+        right = self.c_translation[ctx.expr(1)]
+        self.c_translation[ctx] = f'{left} {right}'
+
 
     def exitScript(self, ctx: ThrobacParser.ScriptContext):
         pass
@@ -100,23 +123,10 @@ class Throbac2CTranslator(ThrobacListener):
     def exitFuncCallStmt(self, ctx: ThrobacParser.FuncCallStmtContext):
         pass
 
-    def exitParens(self, ctx: ThrobacParser.ParensContext):
-        pass
-
     def exitNegation(self, ctx: ThrobacParser.NegationContext):
         pass
 
-    def exitCompare(self, ctx: ThrobacParser.CompareContext):
-        pass
 
-    def exitConcatenation(self, ctx: ThrobacParser.ConcatenationContext):
-        pass
-
-    def exitBool(self, ctx: ThrobacParser.BoolContext):
-        pass
-
-    def exitVariable(self, ctx: ThrobacParser.VariableContext):
-        pass
 
     def exitAddSub(self, ctx: ThrobacParser.AddSubContext):
         pass

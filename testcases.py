@@ -53,7 +53,11 @@ TEST_CASES = [
     (r'"YO\nYOYO\n\n"', '^YO+YOYO++^', 'expr'),  # Note the use of raw string to permit \n
                                                  # alternative would have been '"YO\\nYOYO\\n\\n"'
     # booleans
+    ('1', 'VERUM', 'expr'),
+    ('0', 'FALSUM', 'expr'),
     # variables
+    ('count', 'count', 'expr'),
+    ('asdgefawfawda', 'asdgefawfawda', 'expr'),
     # parentheses
     # compare
     # concatenation
@@ -90,3 +94,6 @@ class TranslationTest(unittest.TestCase):
                               throbac=throbac,
                               rule=rule):
                 self.assertEqual(c, as_c(throbac, rule))
+
+if __name__ == '__main__':
+    unittest.main()
