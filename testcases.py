@@ -59,7 +59,10 @@ TEST_CASES = [
     ('count', 'count', 'expr'),
     ('asdgefawfawda', 'asdgefawfawda', 'expr'),
     # parentheses
+    ('55', '(.V.V.)', 'expr'),
+    ('5', '(.V.)', 'expr'),
     # compare
+    ('1 <= 5', '(.I.INFRA.IDEM.V.)', 'expr'),
     # concatenation
     # add and subtract
     # multiply and divide
