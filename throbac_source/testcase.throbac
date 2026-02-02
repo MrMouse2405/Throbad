@@ -1,0 +1,60 @@
+// Author: OCdt Syed, OCdt Noyes
+// Version: 2026-01-29
+
+//Test case for SCRIPT
+APUD special : LOCUTIO DEFINITIO name PRAEBET LOCUTIO >
+    nstring : NUMERUS MUTABILIS
+    nstring name IUNGO ^IS.SPECIAL^ VALORUM
+    nstring REDEO
+<
+
+
+//Test case for FUNCTION DEFINITION
+
+APUD printamount : NUMERUS DEFINITIO toprint >
+    goingtoprint : NUMERUS MUTABILIS
+    goingtoprint printamount VALORUM
+    goingtoprint SUPRA .NIL. DUM >
+        goingtoprint goingtoprint SUBTRAHO .I. VALORUM
+        ^PRINTING+^ LOCUTIO.IMPRIMO
+    <
+<
+
+
+//Test case for main has also been functioning as all of this has gone into main
+
+//Test case for BODY IS ALL TEST CASES BELOW COMBINED
+
+// Test case for VARBLOCK
+ilovelatin: LOCUTIO MUTABILIS
+andnimble: VERITAS MUTABILIS
+
+
+// Test case for VARDEF
+current : NUMERUS MUTABILIS
+
+
+// Test case for BLOCK
+.V.V. NUMERUS.IMPRIMO
+.V. REDEO
+
+//RESULT = {printf("%d", 55);\n return 5;}
+
+// Test case for WHILE
+VERUM DUM >
+    ^INFINITE.LOOP+^ LOCUTIO.IMPRIMO
+    <
+
+// RESULT = INFINITE LOOP THAT PRINTS INFINITE LOOPS ON NEW LINE
+
+// Test case for IF
+
+.I.NIL. NI.IDEM .I.I. SI >
+    .I.I. SUBTRAHO .I.NIL. NUMERUS.IMPRIMO
+    <
+
+// RESULT compares 10 and 11. If they are not equal print 11 - 10
+
+
+
+

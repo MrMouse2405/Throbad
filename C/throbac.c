@@ -3,9 +3,9 @@ C implementations of the Throbac string concatenation function
 `__throbac_cat` (provided for you) and the two Throbac built-in
 functions `stringlength` and `substring`
 
-Author: TODO: your names here
+Author: OCdt Syed, OCdt Noyes
 
-Version: 2022-01-23
+Version: 2026-01-29
 */
 
 #include <stdlib.h>
@@ -24,9 +24,16 @@ char *__throbac_cat(char *first, char *second) {
 }
 
 int stringlength(char *str) {
-    // TODO: your code here
+    return (int)strlen(str);
 }
 
 char *substring(char* str, int start, int length) {
-    // TODO: your code here
+    if (start < 0 ||  start > length || length > strlen(str) - 1 || start + length > strlen(str)) abort();
+    char *sub = malloc(length + 1);
+    if (!sub) abort();
+
+    strncpy(sub, str + start, length);
+    sub[length] = '\0';
+
+    return sub;
 }

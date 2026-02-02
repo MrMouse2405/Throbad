@@ -1,9 +1,9 @@
 """
 Test cases for the Throbac to C transpiler
 
-Author: TODO: your names here
+Author: OCdt Syed, OCdt Noyes
 
-Version: TODO: submission date here
+Version: 2026-01-29
 """
 
 import unittest
@@ -59,26 +59,47 @@ TEST_CASES = [
     ('count', 'count', 'expr'),
     ('asdgefawfawda', 'asdgefawfawda', 'expr'),
     # parentheses
-    ('55', '(.V.V.)', 'expr'),
-    ('5', '(.V.)', 'expr'),
+    ('(55)', '(.V.V.)', 'expr'),
+    ('(5)', '(.V.)', 'expr'),
+    ('5 * (1 + 2)', '.V. CONGERO (.I. ADDO .II.)', 'expr'),
     # compare
-    ('1 <= 5', '(.I.INFRA.IDEM.V.)', 'expr'),
+    ('1 <= 5', '.I.INFRA.IDEM.V.', 'expr'),
     # concatenation
+    ('__throbac_cat("HELLO.","WORLD")', '^HELLO.^IUNGO^WORLD^', 'expr'),
     # add and subtract
+    ('(5 - (1 + 2))', '(.V. SUBTRAHO (.I. ADDO .II.))', 'expr'),
     # multiply and divide
+    ('5 * (1 / 2)', '.V. CONGERO (.I. PARTIO .II.)', 'expr'),
+    ('1 - 5 * (1 / 2)', '.I. SUBTRAHO .V. CONGERO (.I. PARTIO .II.)', 'expr'),
     # negation
+    ('(-(-(-1)))', 'NI NI NI VERUM', 'expr'),
     # function call
+    ('apple(1)', 'APUD VERUM VOCO apple', 'funcCall'),
+    ('apple(count)', 'APUD count VOCO apple', 'funcCall'),
     # function call expression
+    ('apple(count,1)', 'APUD count,VERUM VOCO apple', 'expr'),
     # function call statement
+    ('apple(count,1,rotten);', 'APUD count,VERUM,rotten VOCO apple', 'statement'),
     # assignment
+    ('count = 37;', 'count .III.VII. VALORUM', 'statement'),
+    ('count = getnum(something);', 'count APUD something VOCO getnum VALORUM', 'statement'),
     # return
+    ('return 5;', '.V. REDEO', 'statement'),
+    ('return 1 + 3 * (2 - 1);', '.I. ADDO .III. CONGERO (.II. SUBTRAHO .I.) REDEO', 'statement'),
     # print int
+    ('printf("%d", 55);','.V.V. NUMERUS.IMPRIMO','statement'),
+    ('printf("%d", apples);','apples NUMERUS.IMPRIMO','statement'),
     # print string
+    ('printf("%s", "HELLO");',' ^HELLO^ LOCUTIO.IMPRIMO','statement'),
     # print bool
+    ('printf("%s", (1)?"True":"False");','VERUM VERITAS.IMPRIMO','statement'),
+
+    ## ALL TEST CASES BELOW ARE MULTI LINE AND ARE TESTED IN TESTCASE.THROBAC GENERATED C FILE IS COMMENTED TO HIGHLIGHT EACH SPECIFIC PART
     # block
     # while
     # if
     # nameDef
+    ('int newint','newint : NUMERUS','nameDef')
     # varDec
     # varBlock
     # body
